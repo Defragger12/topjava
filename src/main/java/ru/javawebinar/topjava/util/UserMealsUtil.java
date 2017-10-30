@@ -60,7 +60,7 @@ public class UserMealsUtil {
                     userMealWithExceeds.add(new UserMealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), false));
                 } else {
                     userMealWithExceeds.add(new UserMealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), true));
-                }
+                } 123123
             }
         }
         return userMealWithExceeds;
