@@ -29,7 +29,7 @@ public class MealRestController {
         log.info("create {}", meal);
         checkNew(meal);
         meal.setUserId(AuthorizedUser.id());
-        return service.create(meal);
+        return service.create(meal, AuthorizedUser.id());
     }
 
     public void delete(int id) throws NotFoundException {
