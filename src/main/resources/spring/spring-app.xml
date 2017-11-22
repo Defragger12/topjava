@@ -15,9 +15,52 @@
     <!-- Not necessary, already included with component-scan -->
     <!--<context:annotation-config/>-->
 
-    <context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>
 
-    <context:component-scan base-package="ru.javawebinar.**.service"/>
+
+    <bean class="ru.javawebinar.topjava.repository.jdbc.JdbcMealRepositoryImpl" id="jdbcMealRepository">
+        <constructor-arg index="0" ref="dataSource"/>
+        <constructor-arg index="1" ref="jdbcTemplate"/>
+        <constructor-arg index="2" ref="namedJdbcTemplate"/>
+    </bean>
+
+    <bean class="ru.javawebinar.topjava.repository.jdbc.JdbcUserRepositoryImpl" id="jdbcUserRepository">
+        <constructor-arg index="0" ref="dataSource"/>
+        <constructor-arg index="1" ref="jdbcTemplate"/>
+        <constructor-arg index="2" ref="namedJdbcTemplate"/>
+    </bean>
+
+    <bean class="ru.javawebinar.topjava.repository.mock.InMemoryMealRepositoryImpl" id="inMemoryMealRepository"/>
+    <bean class="ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl" id="inMemoryUserRepository"/>
+
+    <bean class="ru.javawebinar.topjava.service.MealServiceImpl" id="jdbcMealService">
+        <constructor-arg ref="jdbcMealRepository"/>
+    </bean>
+
+    <bean class="ru.javawebinar.topjava.service.UserServiceImpl" id="jdbcUserService">
+        <constructor-arg ref="jdbcUserRepository"/>
+    </bean>
+
+    <bean class="ru.javawebinar.topjava.service.MealServiceImpl" id="inMemoryMealService">
+        <constructor-arg ref="inMemoryMealRepository"/>
+    </bean>
+
+    <bean class="ru.javawebinar.topjava.service.UserServiceImpl" id="inMemoryUserService">
+        <constructor-arg ref="inMemoryUserRepository"/>
+    </bean>
+
+    <!--<bean class="ru.javawebinar.topjava.web.meal.MealRestController" id="inMemoryMealController">-->
+        <!--<constructor-arg ref="inMemoryMealService"/>-->
+    <!--</bean>-->
+
+    <!--<bean class="ru.javawebinar.topjava.web.meal.MealRestController" id="inMemoryUserController">-->
+        <!--<constructor-arg ref="inMemoryUserService"/>-->
+    <!--</bean>-->
+
+
+
+    <!--<context:component-scan base-package="ru.javawebinar.**.repository"/>-->
+
+    <!--<context:component-scan base-package="ru.javawebinar.**.service"/>-->
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>
 
