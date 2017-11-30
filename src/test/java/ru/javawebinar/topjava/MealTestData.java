@@ -25,16 +25,27 @@ public class MealTestData {
 
     public static final List<Meal> MEALS = Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
 
+    static {
+        for (Meal meal : MEALS) {
+            meal.setUser(UserTestData.USER);
+        }
+        ADMIN_MEAL1.setUser(UserTestData.ADMIN);
+        ADMIN_MEAL2.setUser(UserTestData.ADMIN);
+    }
+
     public static Meal getCreated() {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
     }
 
     public static Meal getUpdated() {
-        return new Meal(MEAL1_ID, MEAL1.getDateTime(), "Обновленный завтрак", 200);
+        Meal meal = new Meal(MEAL1_ID, MEAL1.getDateTime(), "Обновленный завтрак", 200);
+        meal.setUser(UserTestData.USER);
+        return meal;
     }
 
     public static void assertMatch(Meal actual, Meal expected) {
-        assertThat(actual).isEqualToComparingFieldByField(expected);
+//        assertThat(actual).isEqualToIgnoringGivenFields(expected, "user");
+        assertThat(actual).isEqualTo(expected);
     }
 
     public static void assertMatch(Iterable<Meal> actual, Meal... expected) {
@@ -42,6 +53,8 @@ public class MealTestData {
     }
 
     public static void assertMatch(Iterable<Meal> actual, Iterable<Meal> expected) {
-        assertThat(actual).usingFieldByFieldElementComparator().isEqualTo(expected);
+//        assertThat(actual).usingElementComparatorIgnoringFields("user").isEqualTo(expected);
+        assertThat(actual).isEqualTo(expected);
+
     }
 }

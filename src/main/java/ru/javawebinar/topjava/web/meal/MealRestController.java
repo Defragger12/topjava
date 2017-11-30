@@ -26,7 +26,7 @@ public class MealRestController {
     private final MealService service;
 
     @Autowired
-    public MealRestController(@Qualifier("inMemoryMealService") MealService service) {
+    public MealRestController(MealService service) {
         this.service = service;
     }
 

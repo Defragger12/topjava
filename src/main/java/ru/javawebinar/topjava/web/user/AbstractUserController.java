@@ -16,7 +16,6 @@ public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    @Qualifier("inMemoryUserService")
     private UserService service;
 
     public List<User> getAll() {
