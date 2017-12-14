@@ -83,6 +83,7 @@ public class RootController {
             if (request.getParameter("id").isEmpty()) {
                 mealService.create(meal, AuthorizedUser.id());
             } else {
+                meal.setId(Integer.valueOf(request.getParameter("id")));
                 mealService.update(meal, AuthorizedUser.id());
             }
         }
