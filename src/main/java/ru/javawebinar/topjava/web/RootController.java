@@ -24,8 +24,7 @@ public class RootController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private MealService mealService;
+
 
     @GetMapping("/")
     public String root() {
@@ -45,48 +44,5 @@ public class RootController {
         return "redirect:meals";
     }
 
-    @GetMapping("/meals")
-    public String getMeals(Model model, @RequestParam(value = "action", required = false) String action, @RequestParam(value = "id", required = false) Integer id) {
-        if (action != null) {
-            switch (action) {
-                case "delete":
-                    mealService.delete(Integer.valueOf(id), AuthorizedUser.id());
-                    return "redirect:meals";
-                case "update":
-                    model.addAttribute("meal", mealService.get(Integer.valueOf(id), AuthorizedUser.id()));
-                    return "mealForm";
-                case "create":
-                    model.addAttribute("meal", new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000));
-                    return "mealForm";
-            }
-        }
-        model.addAttribute("meals", MealsUtil.getWithExceeded(mealService.getAll(AuthorizedUser.id()), AuthorizedUser.getCaloriesPerDay()));
-        return "meals";
-    }
 
-    @PostMapping("/meals")
-    public String postMeals(Model model, HttpServletRequest request, @RequestParam(value = "action", required = false) String action) {
-        if (action != null && action.equals("filter")) {
-            LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
-            LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
-            LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
-            LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
-            model.addAttribute("meals", MealsUtil.getWithExceeded(mealService.getBetweenDateTimes(LocalDateTime.of(startDate, startTime),
-                    LocalDateTime.of(endDate, endTime), AuthorizedUser.id()), AuthorizedUser.getCaloriesPerDay()));
-            return "meals";
-        } else {
-            Meal meal = new Meal(
-                    LocalDateTime.parse(request.getParameter("dateTime")),
-                    request.getParameter("description"),
-                    Integer.parseInt(request.getParameter("calories")));
-
-            if (request.getParameter("id").isEmpty()) {
-                mealService.create(meal, AuthorizedUser.id());
-            } else {
-                meal.setId(Integer.valueOf(request.getParameter("id")));
-                mealService.update(meal, AuthorizedUser.id());
-            }
-        }
-        return "redirect:meals";
-    }
 }
