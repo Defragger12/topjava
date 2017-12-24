@@ -6,7 +6,7 @@ import org.springframework.cache.CacheManager;
 import ru.javawebinar.topjava.repository.JpaUtil;
 import ru.javawebinar.topjava.service.UserService;
 
-public class AbstractControllerUserTest extends AbstractControllerTest {
+public abstract class AbstractControllerUserTest extends AbstractControllerTest {
 
     @Autowired
     private CacheManager cacheManager;

@@ -12,7 +12,7 @@ import static ru.javawebinar.topjava.MealTestData.MEAL1_ID;
 import static ru.javawebinar.topjava.UserTestData.USER;
 import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
 
-public class RootControllerTest extends AbstractControllerTest {
+public class RootControllerTest extends AbstractControllerUserTest {
 
     @Test
     public void testUsers() throws Exception {
