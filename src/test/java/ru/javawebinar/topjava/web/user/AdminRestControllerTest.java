@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.TestUtil;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
+import ru.javawebinar.topjava.web.AbstractControllerUserTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import java.util.Collections;
@@ -17,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.UserTestData.*;
 
-public class AdminRestControllerTest extends AbstractControllerTest {
+public class AdminRestControllerTest extends AbstractControllerUserTest {
 
     private static final String REST_URL = AdminRestController.REST_URL + '/';
 

@@ -40,15 +40,6 @@ abstract public class AbstractControllerTest {
     protected MockMvc mockMvc;
 
     @Autowired
-    private CacheManager cacheManager;
-
-    @Autowired(required = false)
-    private JpaUtil jpaUtil;
-
-    @Autowired
-    protected UserService userService;
-
-    @Autowired
     private WebApplicationContext webApplicationContext;
 
     @PostConstruct
@@ -59,11 +50,4 @@ abstract public class AbstractControllerTest {
                 .build();
     }
 
-    @Before
-    public void setUp() {
-        cacheManager.getCache("users").clear();
-        if (jpaUtil != null) {
-            jpaUtil.clear2ndLevelHibernateCache();
-        }
-    }
 }
