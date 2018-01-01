@@ -3,6 +3,16 @@ function makeEditable() {
         deleteRow($(this).closest('tr').attr('id'));
     });
 
+    $(".toggleEnabled").change(function () {
+        var id = $(this).closest('tr').attr('id');
+        toggleEnabledUser(id);
+    });
+
+    $('#filterForm').submit(function () {
+        filter();
+        return false;
+    });
+
     $("#detailsForm").submit(function () {
         save();
         return false;
@@ -21,6 +31,35 @@ function add() {
     $("#editRow").modal();
 }
 
+function unfilter() {
+    $("#filterForm").find(":input").val("");
+    filter();
+}
+
+function toggleEnabledUser(id) {
+    $.ajax({
+            type: "PUT",
+            url: ajaxUrl + id,
+            success: function () {
+                updateTable();
+            }
+        }
+    )
+}
+
+
+function filter() {
+    var form = $('#filterForm');
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + "filter",
+        data: form.serialize(),
+        success: function (data) {
+            datatableApi.clear().rows.add(data).draw();
+        }
+    });
+}
+
 function deleteRow(id) {
     $.ajax({
         url: ajaxUrl + id,
@@ -36,6 +75,9 @@ function updateTable() {
     $.get(ajaxUrl, function (data) {
         datatableApi.clear().rows.add(data).draw();
     });
+    if ($('#filterForm').length != 0) {
+        filter();
+    }
 }
 
 function save() {

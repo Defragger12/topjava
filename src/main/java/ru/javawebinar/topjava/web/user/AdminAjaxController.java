@@ -34,4 +34,9 @@ public class AdminAjaxController extends AbstractUserController {
             super.create(user);
         }
     }
+
+    @PutMapping("/{id}")
+    public void toggleEnabled(@PathVariable("id") int id) {
+        super.toggleEnabledUser(id);
+    }
 }
