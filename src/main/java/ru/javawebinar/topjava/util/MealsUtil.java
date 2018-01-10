@@ -1,9 +1,11 @@
 package ru.javawebinar.topjava.util;
 
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.MealTo;
 import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
@@ -37,6 +39,22 @@ public class MealsUtil {
     public static MealWithExceed createWithExceed(Meal meal, boolean exceeded) {
         return new MealWithExceed(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceeded);
     }
+
+    public static Meal createNewFromTo(MealTo mealTo) {
+        return new Meal(null, LocalDateTime.parse(mealTo.getDateTime()), mealTo.getDescription(), mealTo.getCalories());
+    }
+
+    public static MealTo asTo(Meal meal) {
+        return new MealTo(meal.getId(), meal.getDateTime().toString(), meal.getDescription(), meal.getCalories());
+    }
+
+    public static Meal updateFromTo(Meal meal, MealTo mealTo) {
+        meal.setDateTime(LocalDateTime.parse(mealTo.getDateTime()));
+        meal.setDescription(mealTo.getDescription());
+        meal.setCalories(mealTo.getCalories());
+        return meal;
+    }
+
 
 /*
     public static List<MealWithExceed> getFilteredWithExceededByCycle(List<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
